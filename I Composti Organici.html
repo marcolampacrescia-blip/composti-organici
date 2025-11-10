@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Interattiva - I Composti Organici</title>
+    
+    <!-- Chosen Palette: Warm Neutral Amber (bg-amber-50, bg-white, text-slate-800, accent-amber-600, secondary-slate-200) -->
+    <!-- Application Structure Plan (v7): Grafico Proteine (Bar Chart) rimosso. Sostituito con una griglia 2x2 di schede descrittive (layout simile ad Acidi Nucleici). -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js non è più necessario in questa pagina, ma lo lascio se volessimo reintrodurlo. Per ora lo rimuovo dallo script. -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --> 
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        #home, #definizione, #biomolecole {
+            scroll-margin-top: 90px; 
+        }
+        /* Rimosso .chart-container perché non più usato */
+        .tab-btn {
+            @apply px-4 py-3 text-sm md:text-base font-medium text-center text-slate-500 border-b-2 border-transparent hover:text-amber-600 hover:border-amber-600 transition-colors duration-200;
+        }
+        .tab-btn.active {
+            @apply border-amber-600 text-amber-600;
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-amber-50 font-sans text-slate-800 antialiased">
+
+    <header class="bg-amber-600 text-white p-4 sticky top-0 z-10 shadow-md">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold">App Interattiva: I Composti Organici</h1>
+            <nav class="mt-2 md:mt-0">
+                <ul class="flex space-x-4">
+                    <li><a href="#home" class="hover:text-amber-200 transition-colors">Home</a></li>
+                    <li><a href="#definizione" class="hover:text-amber-200 transition-colors">Definizione</a></li>
+                    <li><a href="#biomolecole" class="hover:text-amber-200 transition-colors">Le 4 Biomolecole</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="home" class="min-h-[60vh] flex flex-col justify-center items-center text-center bg-white rounded-lg shadow-xl p-8 my-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-amber-700 mb-4">I Composti Organici</h2>
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-8">
+                Benvenuto! Questa è un'applicazione interattiva per esplorare i mattoni fondamentali della vita. Inizieremo capendo cosa sono i composti organici e quali sono le loro categorie principali, per poi scoprire le molecole biologiche.
+            </p>
+            <a href="#definizione" class="px-6 py-3 bg-amber-600 text-white font-bold rounded-lg shadow-md hover:bg-amber-700 transition-transform hover:scale-105">
+                Inizia l'esplorazione
+            </a>
+        </section>
+
+        <section id="definizione" class="py-16">
+            <h2 class="text-3xl font-bold text-center text-slate-700 mb-4">Cosa sono i Composti Organici?</h2>
+            
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-amber-700 mb-4">Il Ruolo Fondamentale del Carbonio (C)</h3>
+                <p class="text-lg text-slate-700">
+                    La <strong class="font-bold">chimica organica</strong> è la chimica che studia i composti che contengono <strong class="font-bold">Carbonio (C)</strong>.
+                </p>
+                <p class="text-lg text-slate-700 mt-4">
+                    Il Carbonio è l'elemento fondamentale della vita. Ha una capacità speciale: può formare 4 legami con altri atomi, permettendogli di creare catene lunghissime e molecole enormi e complesse (chiamate <em>macromolecole</em>). È come un mattoncino LEGO® speciale che si può collegare in 4 punti diversi.
+                </p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-center text-slate-700 mt-16 mb-8">I composti organici comprendono:</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="flex flex-col bg-white p-6 rounded-lg shadow-lg border-t-4 border-amber-500">
+                    <h4 class="text-2xl font-bold text-amber-700">1. Gli Idrocarburi</h4>
+                    <p class="text-slate-600 mt-2">Sono le molecole organiche <strong class="font-bold">più semplici</strong>.</p>
+                    <p class="text-slate-700 mt-4">Formati <strong class="font-bold">solo</strong> da Carbonio (C) e Idrogeno (H). Non si sciolgono in acqua. Esempi comuni sono il petrolio e il gas metano.</p>
+                </div>
+
+                <div class="flex flex-col bg-white p-6 rounded-lg shadow-lg border-t-4 border-amber-500">
+                    <h4 class="text-2xl font-bold text-amber-700">2. Gli Alcoli</h4>
+                    <p class="text-slate-600 mt-2">Contengono anche <strong class="font-bold">Ossigeno (O)</strong>.</p>
+                    <p class="text-slate-700 mt-4">Formati da Carbonio (C), Idrogeno (H) e Ossigeno (O). Hanno un gruppo speciale chiamato -OH. L'alcol etilico (che si forma dalla fermentazione degli zuccheri) è l'esempio più famoso.</p>
+                </div>
+
+                <div class="flex flex-col bg-white p-6 rounded-lg shadow-lg border-t-4 border-amber-500 transition-all duration-300 hover:shadow-xl hover:scale-105">
+                    <h4 class="text-2xl font-bold text-amber-700">3. Le Molecole Biologiche</h4>
+                    <p class="text-slate-600 mt-2">Le molecole della vita, grandi e complesse.</p>
+                    <p class="text-slate-700 mt-4">Sono i "materiali costitutivi" di tutti gli esseri viventi.</p>
+                    <a href="#biomolecole" class="mt-auto pt-4 text-center px-6 py-2 bg-amber-600 text-white font-bold rounded-lg shadow-md hover:bg-amber-700 transition-transform hover:scale-105 self-start">
+                        Approfondisci
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="biomolecole" class="py-16 bg-white rounded-lg shadow-inner p-4 md:p-8">
+            <h2 class="text-3xl font-bold text-center text-slate-700 mb-4">Le 4 Molecole della Vita (Biomolecole)</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-xl mx-auto">
+                Le molecole biologiche (o biomolecole) sono i composti organici più complessi e sono fondamentali per la vita. Si dividono in quattro grandi famiglie. Clicca su ogni scheda qui sotto per esplorare una famiglia.
+            </p>
+
+            <div class="flex flex-wrap justify-center border-b border-slate-200 mb-8">
+                <button data-tab="carb" class="tab-btn active">🍞 Carboidrati</button>
+                <button data-tab="lipi" class="tab-btn">🥑 Lipidi</button>
+                <button data-tab="prot" class="tab-btn">🍗 Proteine</button>
+                <button data-tab="acid" class="tab-btn">🧬 Acidi Nucleici</button>
+            </div>
+
+            <div class="mt-8">
+                
+                <div id="carb" class="tab-panel active">
+                    <h3 class="text-2xl font-bold text-center text-amber-700 mb-4">Carboidrati (o Zuccheri)</h3>
+                    <p class="text-center text-slate-600 mb-8">La nostra fonte di <strong class="font-bold">energia</strong> principale.</p>
+                    <p class="text-center text-slate-600 mb-8">Sono fatti di Carbonio, Idrogeno e Ossigeno.</p>
+                    <div class="w-full p-4">
+                        <div class="text-center p-4 bg-amber-100 rounded-lg shadow-md max-w-xs mx-auto">
+                            <h4 class="font-bold text-lg text-amber-800">CARBOIDRATI</h4>
+                        </div>
+                        <div class="flex justify-center my-4">
+                            <div class="w-px bg-slate-300 h-8"></div>
+                        </div>
+                        <div class="flex justify-center my-4">
+                            <div class="w-full max-w-3xl h-px bg-slate-300"></div>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-around items-stretch text-center space-y-8 md:space-y-0 md:space-x-4">
+                            
+                            <div class="flex-1">
+                                <div class="w-px bg-slate-300 h-8 mx-auto"></div>
+                                <div class="p-4 bg-white border-2 border-amber-300 rounded-lg shadow">
+                                    <h5 class="font-bold text-amber-700">1. Monosaccaridi</h5>
+                                    <p class="text-sm text-slate-600">(1 pezzo - Semplici)</p>
+                                    <p class="text-sm font-medium mt-2">Es. Glucosio, Fruttosio (frutta 🍇)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1">
+                                <div class="w-px bg-slate-300 h-8 mx-auto"></div>
+                                <div class="p-4 bg-white border-2 border-amber-300 rounded-lg shadow">
+                                    <h5 class="font-bold text-amber-700">2. Disaccaridi</h5>
+                                    <p class="text-sm text-slate-600">(2 pezzi)</p>
+                                    <p class="text-sm font-medium mt-2">Es. Saccarosio (zucchero da cucina 🍚)</p>
+                                </div>
+                            </div>
+
+                            <div class="flex-1">
+                                <div class="w-px bg-slate-300 h-8 mx-auto"></div>
+                                <div class="p-4 bg-white border-2 border-amber-300 rounded-lg shadow">
+                                    <h5 class="font-bold text-amber-700">3. Polisaccaridi</h5>
+                                    <p class="text-sm text-slate-600">(Molti pezzi - Complessi)</p>
+                                    <p class="text-sm font-medium mt-2">Es. Amido (pane 🍞, pasta 🍝)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="lipi" class="tab-panel">
+                    <h3 class="text-2xl font-bold text-center text-amber-700 mb-4">Lipidi (o Grassi)</h3>
+                    <p class="text-center text-slate-600 mb-8">La nostra <strong class="font-bold">riserva di energia</strong> e isolamento dal freddo.</p>
+                    <p class="text-center text-lg font-bold text-slate-700 mb-8">Non si sciolgono in acqua.</p>
+                    
+                    <div class="w-full p-4 max-w-4xl mx-auto">
+                        <div class="text-center p-4 bg-gray-100 rounded-lg shadow-md max-w-xs mx-auto">
+                            <h4 class="font-bold text-lg text-slate-800">LIPIDI</h4>
+                        </div>
+                        <div class="flex justify-center my-4">
+                            <div class="w-px bg-slate-300 h-8"></div>
+                        </div>
+                        <div class="flex justify-center my-4">
+                            <div class="w-full max-w-2xl h-px bg-slate-300"></div>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-around items-stretch text-center space-y-8 md:space-y-0 md:space-x-8">
+                            
+                            <div class="flex-1">
+                                <div class="w-px bg-slate-300 h-8 mx-auto"></div>
+                                <div class="p-4 bg-amber-100 border-2 border-amber-500 rounded-lg shadow-lg">
+                                    <h5 class="font-bold text-amber-700 text-xl mb-1">Origine Animale 🥩</h5>
+                                    <p class="text-sm text-slate-600">Ricchi di Grassi Saturi</p>
+                                    <p class="text-base font-medium mt-2">Es. Burro 🧈, Lardo</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1">
+                                <div class="w-px bg-slate-300 h-8 mx-auto"></div>
+                                <div class="p-4 bg-lime-100 border-2 border-lime-500 rounded-lg shadow-lg">
+                                    <h5 class="font-bold text-lime-700 text-xl mb-1">Origine Vegetale 🌿</h5>
+                                    <p class="text-sm text-slate-600">Ricchi di Grassi Insaturi</p>
+                                    <p class="text-base font-medium mt-2">Es. Olio 🫒, Noci 🥜, Avocado 🥑</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-center text-sm text-slate-500 mt-4">La differenza tra i due è data dalla presenza di Grassi Saturi (più solidi) o Insaturi (più liquidi).</p>
+                </div>
+
+                <div id="prot" class="tab-panel">
+                    <h3 class="text-2xl font-bold text-center text-amber-700 mb-4">Proteine</h3>
+                    <p class="text-center text-slate-600 mb-8">Sono i <strong class="font-bold">"mattoni" 🧱</strong> che costruiscono il nostro corpo.</p>
+                    <p class="text-center text-slate-600 mb-8">Sono fatte da 20 tipi di pezzi più piccoli, chiamati <strong class="font-bold">Amminoacidi</strong>.</p>
+                    <p class="text-center text-lg text-slate-600 mb-8">Svolgono tantissime funzioni. Esempi:</p>
+
+                    <!-- INIZIO NUOVA GRIGLIA PER PROTEINE (sostituisce il grafico) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                        
+                        <!-- Funzione 1: Struttura (Blu) -->
+                        <div class="p-4 bg-blue-100 border-t-4 border-blue-500 rounded-lg shadow-lg">
+                            <h5 class="font-bold text-blue-700 text-xl text-center">Funzione Strutturale</h5>
+                            <p class="text-slate-600 text-center mt-2">Costruiscono il corpo.</p>
+                            <p class="text-slate-700 text-center font-medium">Es: Capelli, Unghie, Muscoli</p>
+                        </div>
+                        
+                        <!-- Funzione 2: Enzimi (Verde) -->
+                        <div class="p-4 bg-green-100 border-t-4 border-green-500 rounded-lg shadow-lg">
+                            <h5 class="font-bold text-green-700 text-xl text-center">Funzione Enzimatica</h5>
+                            <p class="text-slate-600 text-center mt-2">Accelerano le reazioni chimiche.</p>
+                            <p class="text-slate-700 text-center font-medium">Es: Digestione del cibo</p>
+                        </div>
+
+                        <!-- Funzione 3: Trasporto (Rosso) -->
+                        <div class="p-4 bg-red-100 border-t-4 border-red-500 rounded-lg shadow-lg">
+                            <h5 class="font-bold text-red-700 text-xl text-center">Funzione di Trasporto</h5>
+                            <p class="text-slate-600 text-center mt-2">Spostano sostanze nel corpo.</p>
+                            <p class="text-slate-700 text-center font-medium">Es: Emoglobina (trasporta ossigeno)</p>
+                        </div>
+
+                        <!-- Funzione 4: Difesa (Arancione) - FIX: Corretto l'errore di battitura in 'class' -->
+                        <div class="p-4 bg-orange-100 border-t-4 border-orange-500 rounded-lg shadow-lg">
+                            <h5 class="font-bold text-orange-700 text-xl text-center">Funzione di Difesa</h5>
+                            <p class="text-slate-600 text-center mt-2">Ci proteggono dalle malattie.</p>
+                            <p class="text-slate-700 text-center font-medium">Es: Anticorpi</p>
+                        </div>
+                    </div>
+                    <!-- FINE NUOVA GRIGLIA PER PROTEINE -->
+                </div>
+
+                <div id="acid" class="tab-panel">
+                    <h3 class="text-2xl font-bold text-center text-amber-700 mb-4">Acidi Nucleici</h3>
+                    <p class="text-center text-slate-600 mb-8">Contengono le <strong class="font-bold">"istruzioni" 🗃️</strong> per far funzionare la cellula.</p>
+                    <p class="text-center text-slate-600 mb-8">Sono fatti da pezzi più piccoli, chiamati <strong class="font-bold">Nucleotidi</strong>.</p>
+                    <p class="text-center text-lg text-slate-600 mb-8">Ce ne sono due tipi principali:</p>
+
+                    <div class="flex flex-col md:flex-row justify-center gap-8 mt-12">
+                        <div class="flex-1 p-6 bg-amber-100 rounded-lg shadow-md border-t-4 border-amber-500">
+                            <h4 class="text-2xl font-bold text-amber-800 text-center mb-4">DNA</h4>
+                            <p class="text-lg text-slate-700 text-center">È il <strong class="font-bold">"capo"</strong>.</p>
+                            <p class="text-slate-600 text-center mt-2">Contiene tutte le informazioni ereditarie (il "progetto" per costruire un organismo).</p>
+                        </div>
+                        <div class="flex-1 p-6 bg-slate-100 rounded-lg shadow-md border-t-4 border-slate-500">
+                            <h4 class="text-2xl font-bold text-slate-800 text-center mb-4">RNA</h4>
+                            <p class="text-lg text-slate-700 text-center">È il <strong class="font-bold">"messaggero"</strong>.</p>
+                            <p class="text-slate-600 text-center mt-2">Legge le istruzioni del DNA e le usa per <strong class="font-bold">costruire le proteine</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 mt-16 border-t border-slate-200">
+        <p class="text-slate-500 text-sm">Applicazione interattiva v7 basata sull'analisi del report "I Composti Organici".</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Gestione schede (Tabs) per la sezione #biomolecole
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.dataset.tab;
+
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    tabPanels.forEach(panel => {
+                        if (panel.id === tabId) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+
+                    // Non ci sono più grafici da inizializzare al click,
+                    // ma manteniamo la logica dei tab.
+                });
+            });
+
+            // NOTA: Le funzioni initLipidiChart e initProteineChart sono state rimosse
+            // perché tutti i diagrammi ora usano solo HTML/CSS.
+
+            // Attiva il primo tab (Carboidrati) di default all'avvio
+            if (document.querySelector('.tab-btn[data-tab="carb"]')) {
+                document.querySelector('.tab-btn[data-tab="carb"]').classList.add('active');
+                document.querySelector('.tab-panel#carb').classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
